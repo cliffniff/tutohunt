@@ -5,9 +5,9 @@ const srcDir = path.join(__dirname, "..", "src");
 
 module.exports = {
     entry: {
-        popup: path.join(srcDir, "popup.tsx"),
-        background: path.join(srcDir, "background.ts"),
-        content_script: path.join(srcDir, "content_script.tsx"),
+        Popup: path.join(srcDir, "Popup.tsx"),
+        Background: path.join(srcDir, "Background.ts"),
+        ContentScript: path.join(srcDir, "ContentScript.tsx"),
     },
     output: {
         path: path.join(__dirname, "../dist/js"),
@@ -15,7 +15,7 @@ module.exports = {
     },
     optimization: {
         splitChunks: {
-            name: "vendor",
+            name: "Vendor",
             chunks: "initial",
         },
     },
@@ -41,7 +41,7 @@ module.exports = {
             },
             {
                 test: /\.svg$/,
-                use: ["file-loader"],
+                use: ["@svgr/webpack"],
             },
         ],
     },

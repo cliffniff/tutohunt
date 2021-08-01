@@ -9,7 +9,6 @@
         "outDir": "dist/js",
         "noEmitOnError": true,
         "jsx": "react",
-        "typeRoots": ["node_modules/@types"],
-        "plugins": [{ "name": "typescript-plugin-css-modules" }]
+        "typeRoots": ["node_modules/@types"]
     }
 }

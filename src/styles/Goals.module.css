@@ -1,0 +1,69 @@
+/* Goals */
+.goals {
+    display: flex;
+    height: 300px;
+}
+
+/* Goal Queue */
+
+.queues {
+    width: 130px;
+    height: 100%;
+    background: var(--secondary-bg);
+}
+
+.queuelist {
+    position: relative;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+}
+
+.queue {
+    display: inline-flex;
+    align-items: center;
+    padding: 10px 5px;
+    cursor: pointer;
+}
+
+.queue:hover {
+    background: var(--primary-bg);
+}
+
+.active {
+    background: var(--primary-bg);
+    cursor: default;
+}
+
+.queue:last-child {
+    margin-top: auto;
+    z-index: 5;
+}
+
+.queueicon {
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+}
+
+.queueicon svg {
+    width: 100%;
+    height: 100%;
+}
+
+.queuetext {
+    font-size: var(--text-size);
+}
+
+/* Goal List */
+
+.lists {
+    width: 270px;
+    height: 100%;
+    background: var(--primary-bg);
+}
