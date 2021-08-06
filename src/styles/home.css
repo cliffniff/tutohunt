@@ -1,0 +1,5 @@
+.home-wrapper {
+    display: grid;
+    grid-template-rows: 1fr 2fr;
+    height: 100%;
+}

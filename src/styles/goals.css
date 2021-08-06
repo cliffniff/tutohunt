@@ -1,0 +1,55 @@
+/* Goals container */
+.goals-wrapper {
+    display: grid;
+    grid-template-columns: minmax(auto, 160px) auto;
+    background: var(--primary-bg);
+}
+
+/* Goal group navigation bar */
+.goals-groups {
+    position: relative;
+    background: var(--secondary-bg);
+}
+
+/* Goal groups */
+.goals-groups-nav {
+    overflow-y: auto;
+}
+
+/* Button to add goal groups */
+.goals-groups-item-add {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+}
+
+/* Clickable goal group item */
+.goals-groups-item {
+    display: flex;
+    align-items: center;
+    padding: 8px 5px;
+    cursor: pointer;
+}
+
+.goals-groups-item:hover {
+    background: var(--hover-secondary);
+}
+
+/* Icon on goal group item */
+.goals-groups-item-icon {
+    flex: 0 0 30px;
+    height: 30px;
+    padding: 4px;
+}
+
+.goals-groups-item-text {
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-left: 5px;
+}
+
+/* Content of selected goal group */
+.goals-content {
+    height: 100%;
+}
