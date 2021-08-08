@@ -1,8 +1,9 @@
+import "react-devtools";
 import * as React from "react";
 import { useState } from "react";
 import ReactDOM from "react-dom";
-import Home from "./components/pages/Home";
-import Options from "./components/pages/Options";
+import Home from "./pages/Home";
+import Options from "./pages/Options";
 import { PageContextProvider } from "./contexts/PageContext";
 import SettingsContextProvider from "./contexts/SettingsContext";
 import "./styles/popup.css";

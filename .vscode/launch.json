@@ -1,0 +1,23 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "chrome",
+            "request": "launch",
+            "name": "Launch Chrome",
+            "url": "https://example.com/#this-could-be-anything",
+            // Here it is!
+            "runtimeArgs": [
+                "--load-extension=\\\\wsl$\\Ubuntu-20.04\\${cwd}\\dist"
+            ]
+        },
+        {
+            // Firefox equivalent
+            "type": "firefox",
+            "request": "launch",
+            "name": "Launch Firefox",
+            "url": "https://example.com/#this-could-be-anything",
+            "addonPath": "${workspaceFolder}"
+        }
+    ]
+}

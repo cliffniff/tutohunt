@@ -6,8 +6,12 @@ import "../styles/goals.css";
 
 // Import icons
 import { FiClock, FiPlus, FiMenu } from "react-icons/fi";
+import { useState } from "react";
 
 const Dashboard: React.FC<{}> = () => {
+    // const [goals, setGoals] = useSta
+    const [activeTab, setActiveTab] = useState();
+
     return (
         <div className="goals-wrapper">
             <div className="goals-groups">

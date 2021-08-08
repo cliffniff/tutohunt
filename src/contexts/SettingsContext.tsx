@@ -1,57 +1,63 @@
+// Imports
+
 import * as React from "react";
-import { useReducer } from "react";
-import { createContext } from "react";
-import initialSettings from "../initialSettings";
-import settingsReducer, {
-    SettingsActionTypes,
-    SettingTypes,
-} from "../reducers/settingsReducer";
+import { useEffect, useState, createContext } from "react";
+import {
+    SettingsType,
+    ChangeSettingsMethodType,
+    SortedSettingsType,
+    SettingsMessagesEnum,
+} from "../types/settingTypes";
+import { sortSettings } from "../utils/settingUtils";
 
-export interface SettingsState {
-    [settingType: string]: {
-        [settingSubType: string]: {
-            id: number;
-            type: SettingTypes;
-            title: string;
-            description?: string;
-            value: number | string | boolean;
-        }[];
-    };
-}
-
-export interface SettingsActions {
-    type: SettingsActionTypes;
-    setting: {
-        id: number;
-        value: string;
-    };
-}
+//Initialiizing Context
 
 export const SettingsContext = createContext<
     Partial<{
-        settings: SettingsState;
-        dispatch: React.Dispatch<SettingsActions>;
+        settings: SettingsType;
+        updateSettings: ChangeSettingsMethodType;
     }>
 >({});
 
+// Context Provider
+
 const SettingsContextProvider: React.FC = ({ children }) => {
-    const [settings, dispatch] = useReducer(
-        settingsReducer,
-        {} as SettingsState,
-        (state) => {
-            let savedSettings = initialSettings;
-            chrome.storage.sync.get(["settings"], ({ settings }) => {
-                if (settings) {
-                    savedSettings = JSON.parse(settings);
-                }
-            });
-            return savedSettings;
-        }
-    );
+    // Initializing settings state
+
+    const [settings, setSettings] = useState<SettingsType>();
+
+    useEffect(() => {
+        chrome.runtime.sendMessage(
+            { message: SettingsMessagesEnum.GET_SETTINGS },
+            ({ message, payload }) => {
+                setSettings(payload);
+            }
+        );
+    }, []);
+
+    // Initializing and memoizing the setting index map
+
+    const settingsTree: SortedSettingsType | undefined =
+        settings && sortSettings(settings as SettingsType);
+
+    // Initializing settings update funtion
+
+    const updateSettings: ChangeSettingsMethodType = (id, value) => {
+        const valuePath = (settingsTree as SortedSettingsType)[id];
+        const newSettings: SettingsType = { ...settings };
+        newSettings[valuePath.type][valuePath.subtype][id].value = value;
+
+        chrome.runtime.sendMessage({
+            message: SettingsMessagesEnum.SAVE_SETTINGS,
+            payload: newSettings,
+        });
+
+        setSettings(newSettings);
+    };
 
     return (
-        <SettingsContext.Provider value={{ settings, dispatch }}>
-            {children}
+        <SettingsContext.Provider value={{ settings, updateSettings }}>
+            {settings && children}
         </SettingsContext.Provider>
     );
 };

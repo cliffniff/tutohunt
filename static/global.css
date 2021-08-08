@@ -22,16 +22,11 @@
     --hover-secondary: #d1d0d0;
 }
 
-/* Setting margin padding of html and bodt to zero */
-html,
-body {
-    margin: 0;
-    padding: 0;
-}
-
 * {
     font-family: "Poppins";
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
     font-size: 1rem;
 }
 

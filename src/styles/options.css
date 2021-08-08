@@ -33,7 +33,7 @@
 
 .options-content {
     display: grid;
-    grid-template-columns: minmax(auto, 160px) auto;
+    grid-template-columns: 1fr 2fr;
     background: var(--primary-bg);
     height: 100%;
 }
@@ -71,4 +71,70 @@
     overflow: hidden;
     text-overflow: ellipsis;
     margin-left: 5px;
+}
+
+.options-tab-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.options-tab-category {
+    display: grid;
+    grid-template-rows: 46px auto;
+    padding: 10px;
+}
+
+.options-tab-subtitle {
+    align-self: center;
+}
+
+.options-tab-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.options-tab-item {
+    display: grid;
+    grid-template-columns: 200px auto;
+    grid-template-rows: min-content min-content;
+
+    grid-template-areas:
+        "title input"
+        "description .";
+    margin-bottom: 20px;
+}
+
+.options-tab-item-title {
+    font-size: 0.8rem;
+    justify-self: start;
+    align-self: start;
+    grid-area: title;
+}
+
+.options-tab-item-description {
+    justify-self: start;
+    align-self: start;
+    grid-area: description;
+    font-size: 0.7rem;
+    font-weight: 300;
+}
+
+.options-tab-item-input {
+    justify-self: start;
+    align-self: start;
+    grid-area: input;
+    width: 40px;
+    height: 18px;
+    border: 0;
+    border-radius: 3px;
+}
+
+.options-tab-item-input[type="text"] {
+}
+
+.options-tab-item-input[type="checkbox"] {
+    padding: 0;
+    margin: 0;
+    height: 15px;
+    width: 15px;
 }

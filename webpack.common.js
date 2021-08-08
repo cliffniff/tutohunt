@@ -3,13 +3,11 @@ const path = require("path");
 const src = path.join(__dirname, "src");
 
 module.exports = {
-    mode: "development",
-    devtool: "inline-source-map",
-    resolve: {extensions: [".js", ".ts", ".tsx"]},
+    resolve: { extensions: [".js", ".ts", ".tsx"] },
     entry: {
         popup: path.join(src, "Popup.tsx"),
-        content_script: path.join(src, "ContentScript.tsx"),
-        background: path.join(src, "Background.ts"),
+        content_script: path.join(src, "content_script/ContentScript.tsx"),
+        background: path.join(src, "background/background.ts"),
     },
     output: {
         path: path.join(__dirname, "dist/js"),
@@ -30,10 +28,7 @@ module.exports = {
             },
             {
                 test: /\.css?$/,
-                use: [
-                    "style-loader",
-                    "css-loader"
-                ],
+                use: ["style-loader", "css-loader"],
             },
         ],
     },

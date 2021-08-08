@@ -2,7 +2,7 @@
     "compilerOptions": {
         "strict": true,
         "module": "CommonJS",
-        "target": "ES6",
+        "target": "ES5",
         "esModuleInterop": true,
         "sourceMap": false,
         "rootDir": "src",
