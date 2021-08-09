@@ -2,12 +2,8 @@ import * as React from "react";
 import { useState, useContext, useMemo } from "react";
 import { FiArrowLeft, FiBell, FiSliders } from "react-icons/fi";
 import PageContext from "../contexts/PageContext";
-import { SettingsContext } from "../contexts/SettingsContext";
-import {
-    ChangeSettingsMethodType,
-    SettingsType,
-    SettingsSubType,
-} from "../types/settingTypes";
+import { SettingsContext, UpdateSettingsIF } from "../contexts/SettingContext";
+import { SettingsIF, SubSettingIF } from "../interfaces/settings.interfaces";
 import "../styles/options.css";
 
 const navIcons: { [name: string]: React.ReactNode } = {
@@ -28,7 +24,7 @@ const Options: React.FC = () => {
     const [activeTab, setActiveTab] = useState(settingsTabs[0]);
 
     const renderTab = () => {
-        const tabContent = (settings as { [key: string]: SettingsSubType })[
+        const tabContent = (settings as { [key: string]: SubSettingIF })[
             activeTab
         ];
 
@@ -43,7 +39,7 @@ const Options: React.FC = () => {
                     <div className="options-tab-content">
                         {Object.keys(data).map((id) => {
                             let { title, type, value, description } = (
-                                settings as SettingsType
+                                settings as SettingsIF
                             )[activeTab][subtitle][id];
                             return (
                                 <div key={id} className="options-tab-item">
@@ -62,7 +58,7 @@ const Options: React.FC = () => {
                                             className="options-tab-item-input"
                                             onChange={(event) => {
                                                 (
-                                                    updateSettings as ChangeSettingsMethodType
+                                                    updateSettings as UpdateSettingsIF
                                                 )(id, event.target.value);
                                             }}
                                         />
@@ -73,7 +69,7 @@ const Options: React.FC = () => {
                                             className="options-tab-item-input"
                                             onChange={(event) => {
                                                 (
-                                                    updateSettings as ChangeSettingsMethodType
+                                                    updateSettings as UpdateSettingsIF
                                                 )(id, event.target.checked);
                                             }}
                                         />

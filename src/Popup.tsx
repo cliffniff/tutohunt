@@ -5,7 +5,7 @@ import ReactDOM from "react-dom";
 import Home from "./pages/Home";
 import Options from "./pages/Options";
 import { PageContextProvider } from "./contexts/PageContext";
-import SettingsContextProvider from "./contexts/SettingsContext";
+import SettingsContextProvider from "./contexts/SettingContext";
 import "./styles/popup.css";
 
 const Popup: React.FC = () => {

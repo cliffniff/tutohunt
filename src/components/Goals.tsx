@@ -7,9 +7,11 @@ import "../styles/goals.css";
 // Import icons
 import { FiClock, FiPlus, FiMenu } from "react-icons/fi";
 import { useState } from "react";
+import { useReducer } from "react";
+import goalReducer from "../reducers/goalReducer";
 
 const Dashboard: React.FC<{}> = () => {
-    // const [goals, setGoals] = useSta
+    const [goals, goalsDispatch] = useReducer(goalReducer, {});
     const [activeTab, setActiveTab] = useState();
 
     return (
