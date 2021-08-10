@@ -6,7 +6,7 @@ module.exports = {
     resolve: { extensions: [".js", ".ts", ".tsx"] },
     entry: {
         popup: path.join(src, "Popup.tsx"),
-        content_script: path.join(src, "content_script/ContentScript.tsx"),
+        content_script: path.join(src, "content-script/contentScript.tsx"),
         background: path.join(src, "background/background.ts"),
     },
     output: {

@@ -1,6 +1,6 @@
 // import { MessagesEnum } from "./message.types";
 
-import { SettingsInputTypes } from "../enums/settings.enums";
+import { SettingsValueTypes } from "../enums/settings.enums";
 
 // Move this to a new file
 
@@ -12,13 +12,14 @@ export interface SortedSettingsIF {
     [id: string]: {
         type: string;
         subtype: string;
+        value: string | boolean;
     };
 }
 
 export interface SubSettingIF {
     [settingSubType: string]: {
         [id: string]: {
-            type: SettingsInputTypes;
+            type: SettingsValueTypes;
             title: string;
             description?: string;
             value: string | boolean;

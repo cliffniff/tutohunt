@@ -1,23 +1,19 @@
 {
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
         {
-            "type": "chrome",
+            "type": "pwa-chrome",
             "request": "launch",
-            "name": "Launch Chrome",
-            "url": "https://example.com/#this-could-be-anything",
-            // Here it is!
+            "name": "Launch Chrome against localhost",
+            "url": "",
+            "webRoot": "${workspaceFolder}",
             "runtimeArgs": [
-                "--load-extension=\\\\wsl$\\Ubuntu-20.04\\${cwd}\\dist"
-            ]
-        },
-        {
-            // Firefox equivalent
-            "type": "firefox",
-            "request": "launch",
-            "name": "Launch Firefox",
-            "url": "https://example.com/#this-could-be-anything",
-            "addonPath": "${workspaceFolder}"
+                "--load-extension=\\\\wsl$\\Ubuntu-20.04\\${workspaceFolder}\\dist"
+            ],
+            "outFiles": ["${workspaceFolder}/dist/js/*.js"]
         }
     ]
 }

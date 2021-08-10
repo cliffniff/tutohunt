@@ -1,8 +1,4 @@
-import { defaultSettings } from "../common/defaultSettings";
-import { ErrorCodes } from "../enums/errors.enums";
-import { ReturnStates } from "../enums/global.enums";
-import useLogger from "../hooks/useLogger";
-import {} from "../interfaces/errors.interfaces";
+import { Result } from "../interfaces/common.interfaces";
 import {
     SettingsIF,
     SortedSettingsIF,
@@ -14,7 +10,8 @@ export const sortSettings = (settings: SettingsIF): SortedSettingsIF => {
     Object.keys(settings).forEach((type) => {
         Object.keys(settings[type]).forEach((subtype) => {
             Object.keys(settings[type][subtype]).forEach((id) => {
-                settingsTree[id] = { type, subtype };
+                const value = settings[type][subtype][id].value;
+                settingsTree[id] = { type, subtype, value };
             });
         });
     });
@@ -22,35 +19,25 @@ export const sortSettings = (settings: SettingsIF): SortedSettingsIF => {
 };
 
 // This function returns the settings from local storage
-export const getSettings = async (): Promise<ReturnStates | SettingsIF> => {
-    try {
-        const savedSettings = await chrome.storage.sync.get("settings");
-        if (savedSettings) {
-            return savedSettings.settings;
-        } else {
-            return ReturnStates.FAILURE;
-        }
-    } catch (error) {
-        useLogger({
-            code: ErrorCodes.IO_ERROR,
-            message: error.message,
-            name: "Error while retrieving settings",
+export const getSettings = (): Promise<Result<SettingsIF, Error>> => {
+    return new Promise((resolve, reject) => {
+        chrome.storage.sync.get("settings", ({ settings }) => {
+            if (settings) {
+                resolve({ value: JSON.parse(settings) });
+            } else {
+                reject({ error: new Error("Error while reading settings") });
+            }
         });
-        return ReturnStates.FAILURE;
-    }
+    });
 };
 
 // This function updates the settings in the local storage
-export const saveSettings = async (settings: SettingsIF) => {
-    try {
-        await chrome.storage.sync.set({ settings: JSON.stringify(settings) });
-        return ReturnStates.SUCCESS;
-    } catch (error) {
-        useLogger({
-            code: ErrorCodes.IO_ERROR,
-            message: error.message,
-            name: "Error while saving settings",
+export const saveSettings = (
+    settings: SettingsIF
+): Promise<Result<boolean, undefined>> => {
+    return new Promise((resolve, reject) => {
+        chrome.storage.sync.set({ settings: JSON.stringify(settings) }, () => {
+            resolve({ value: true });
         });
-        return ReturnStates.FAILURE;
-    }
+    });
 };

@@ -1,8 +1,10 @@
 import { ChromeMessages } from "../enums/messages.enums";
-import { GoalsIF } from "./goals.interfaces";
-import { SettingsIF } from "./settings.interfaces";
-
-export interface ChromeMessageIF {
+export interface ChromeMessageIF<T> {
     action: ChromeMessages;
-    payload?: GoalsIF | SettingsIF;
+    payload?: T;
+}
+
+export interface ChromeMessageResponseIF<T> {
+    success: boolean;
+    payload?: T;
 }

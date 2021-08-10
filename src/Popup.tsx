@@ -7,6 +7,7 @@ import Options from "./pages/Options";
 import { PageContextProvider } from "./contexts/PageContext";
 import SettingsContextProvider from "./contexts/SettingContext";
 import "./styles/popup.css";
+import ErrorBoundary from "./components/ErrorBoundary";
 
 const Popup: React.FC = () => {
     const [page, setPage] = useState("home");
@@ -26,9 +27,11 @@ const Popup: React.FC = () => {
 
     return (
         <div className="popup-wrapper">
-            <PageContextProvider value={setPage}>
-                {renderPage()}
-            </PageContextProvider>
+            <ErrorBoundary>
+                <PageContextProvider value={setPage}>
+                    {renderPage()}
+                </PageContextProvider>
+            </ErrorBoundary>
         </div>
     );
 };

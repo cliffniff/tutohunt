@@ -8,6 +8,10 @@ import {
 } from "../interfaces/settings.interfaces";
 import { sortSettings } from "../utils/settings.utils";
 import { ChromeMessages } from "../enums/messages.enums";
+import {
+    ChromeMessageIF,
+    ChromeMessageResponseIF,
+} from "../interfaces/messages.interfaces";
 
 //Initialiizing Context
 
@@ -30,10 +34,14 @@ const SettingsContextProvider: React.FC = ({ children }) => {
     const [settings, setSettings] = useState<SettingsIF>();
 
     useEffect(() => {
-        chrome.runtime.sendMessage(
-            { message: ChromeMessages.GET_SETTINGS },
-            ({ message, payload }) => {
-                setSettings(payload);
+        chrome.runtime.sendMessage<ChromeMessageIF<undefined>>(
+            { action: ChromeMessages.GET_SETTINGS },
+            ({ success, payload }: ChromeMessageResponseIF<SettingsIF>) => {
+                if (success) {
+                    setSettings(payload as SettingsIF);
+                } else {
+                    throw new Error(`Error while initializing settings`);
+                }
             }
         );
     }, []);
@@ -50,12 +58,19 @@ const SettingsContextProvider: React.FC = ({ children }) => {
         const newSettings: SettingsIF = { ...settings };
         newSettings[valuePath.type][valuePath.subtype][id].value = value;
 
-        chrome.runtime.sendMessage({
-            message: ChromeMessages.SET_SETTINGS,
-            payload: newSettings,
-        });
-
-        setSettings(newSettings);
+        chrome.runtime.sendMessage(
+            {
+                action: ChromeMessages.SET_SETTINGS,
+                payload: newSettings,
+            },
+            ({ success }: ChromeMessageResponseIF<undefined>) => {
+                if (success) {
+                    setSettings(newSettings);
+                } else {
+                    throw new Error(`Error while saving settings`);
+                }
+            }
+        );
     };
 
     return (

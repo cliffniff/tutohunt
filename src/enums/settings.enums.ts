@@ -1,4 +1,4 @@
-export const enum SettingsInputTypes {
+export const enum SettingsValueTypes {
     TEXT = "TEXT",
     CHECKBOX = "CHECKBOX",
 }

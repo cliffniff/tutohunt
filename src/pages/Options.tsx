@@ -19,16 +19,12 @@ const Options: React.FC = () => {
         return Object.keys(settings as {});
     }, []);
 
-    console.log("Setting tabs -", settingsTabs);
-
     const [activeTab, setActiveTab] = useState(settingsTabs[0]);
 
     const renderTab = () => {
         const tabContent = (settings as { [key: string]: SubSettingIF })[
             activeTab
         ];
-
-        console.log(activeTab, tabContent);
 
         for (let [subtitle, data] of Object.entries(tabContent)) {
             return (
