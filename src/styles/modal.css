@@ -1,0 +1,59 @@
+.modal-background {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-wrapper {
+    display: grid;
+    row-gap: 8px;
+    max-width: 80vw;
+    min-width: 60vw;
+    max-height: 80vh;
+    background: #fff;
+    padding: 10px;
+    border-radius: 6px;
+}
+
+.modal-title {
+    font-size: 20px;
+}
+
+.modal-description {
+}
+
+.modal-children {
+}
+
+.modal-buttons {
+    align-self: end;
+    display: flex;
+}
+
+.modal-buttons button {
+    padding: 4px 20px;
+    border-radius: 3px;
+    border: 0;
+    background: var(--primary-bg);
+    cursor: pointer;
+}
+
+.modal-buttons button:hover {
+    background: var(--hover-primary);
+}
+
+.modal-button-ok {
+    align-self: flex-start;
+}
+
+.modal-button-cancel {
+    align-self: flex-end;
+}

@@ -18,10 +18,10 @@
     ],
 
     "background": {
-        "scripts": ["js/background.js", "js/vendor.js"]
+        "scripts": ["js/vendor.js", "js/background.js"]
     },
 
-    "permissions": ["storage"],
+    "permissions": ["storage", "unlimitedStorage", "activeTab", "<all_urls>"],
 
-    "content_security_policy": "default-src 'self' http://localhost:8097; style-src 'unsafe-inline'; connect-src ws://localhost:8097 "
+    "content_security_policy": "default-src 'self' http://localhost:8097; style-src 'unsafe-inline';img-src 'self' data:;connect-src 'self' ws://localhost:8097;"
 }

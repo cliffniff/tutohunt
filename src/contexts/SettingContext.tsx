@@ -12,6 +12,9 @@ import {
     ChromeMessageIF,
     ChromeMessageResponseIF,
 } from "../interfaces/messages.interfaces";
+import { defaultSettings } from "../common/defaultSettings";
+import { SettingsIds } from "../enums/settings.enums";
+import { useMemo } from "react";
 
 //Initialiizing Context
 
@@ -19,11 +22,16 @@ export const SettingsContext = createContext<
     Partial<{
         settings: SettingsIF;
         updateSettings: UpdateSettingsIF;
+        getSettingValue: getSettingValueIF;
     }>
 >({});
 
 export interface UpdateSettingsIF {
-    (id: string, value: string | boolean): void;
+    (id: string, value: string | boolean | number): void;
+}
+
+export interface getSettingValueIF {
+    (id: SettingsIds): string | boolean | number;
 }
 
 // Context Provider
@@ -31,16 +39,17 @@ export interface UpdateSettingsIF {
 const SettingsContextProvider: React.FC = ({ children }) => {
     // Initializing settings state
 
-    const [settings, setSettings] = useState<SettingsIF>();
+    const [settings, setSettings] = useState<SettingsIF>(defaultSettings);
 
     useEffect(() => {
         chrome.runtime.sendMessage<ChromeMessageIF<undefined>>(
             { action: ChromeMessages.GET_SETTINGS },
             ({ success, payload }: ChromeMessageResponseIF<SettingsIF>) => {
                 if (success) {
-                    setSettings(payload as SettingsIF);
+                    console.log("Settings Context", payload);
+                    setSettings(payload!);
                 } else {
-                    throw new Error(`Error while initializing settings`);
+                    console.error("Retrieving settings payload");
                 }
             }
         );
@@ -48,13 +57,18 @@ const SettingsContextProvider: React.FC = ({ children }) => {
 
     // Initializing and memoizing the setting index map
 
-    const settingsTree: SortedSettingsIF | undefined =
-        settings && sortSettings(settings as SettingsIF);
+    const sortedSettings: SortedSettingsIF = useMemo(
+        () => sortSettings(settings),
+        [settings]
+    );
+
+    console.log(sortedSettings);
 
     // Initializing settings update funtion
 
     const updateSettings: UpdateSettingsIF = (id, value) => {
-        const valuePath = (settingsTree as SortedSettingsIF)[id];
+        console.log(id, typeof value);
+        const valuePath = sortedSettings[id];
         const newSettings: SettingsIF = { ...settings };
         newSettings[valuePath.type][valuePath.subtype][id].value = value;
 
@@ -73,8 +87,14 @@ const SettingsContextProvider: React.FC = ({ children }) => {
         );
     };
 
+    const getSettingValue: getSettingValueIF = (id) => {
+        console.log(sortedSettings);
+        return sortedSettings[id].value;
+    };
+
     return (
-        <SettingsContext.Provider value={{ settings, updateSettings }}>
+        <SettingsContext.Provider
+            value={{ settings, updateSettings, getSettingValue }}>
             {settings && children}
         </SettingsContext.Provider>
     );

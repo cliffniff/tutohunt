@@ -12,7 +12,7 @@ export interface SortedSettingsIF {
     [id: string]: {
         type: string;
         subtype: string;
-        value: string | boolean;
+        value: string | boolean | number;
     };
 }
 
@@ -22,7 +22,7 @@ export interface SubSettingIF {
             type: SettingsValueTypes;
             title: string;
             description?: string;
-            value: string | boolean;
+            value: string | boolean | number;
         };
     };
 }

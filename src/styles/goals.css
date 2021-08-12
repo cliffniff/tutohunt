@@ -29,9 +29,14 @@
     align-items: center;
     padding: 8px 5px;
     cursor: pointer;
+    transition: background 0.2s;
 }
 
-.goals-groups-item:hover {
+.goals-groups-item-active {
+    background: var(--primary-bg);
+}
+
+.goals-groups-item:not(.goals-groups-item-active):hover {
     background: var(--hover-secondary);
 }
 
@@ -51,5 +56,130 @@
 
 /* Content of selected goal group */
 .goals-content {
+    position: relative;
+    overflow: hidden;
+}
+
+/* Wrapper for div creating new goals */
+.goals-create-wrapper {
+    position: absolute;
+    display: grid;
+    grid-template-rows: 46px auto;
+    width: 100%;
+    background: var(--secondary-bg);
+    bottom: 0;
+    border: 1px solid var(--primary-bg);
+    transition: 0.2s;
+}
+
+.goals-create-wrapper-hidden {
+    transform: translateY(calc(100% - 46px));
+}
+
+.goals-create-topbar {
+    display: flex;
+    align-items: center;
+    padding: 8px 0;
+    background: var(--secondary-bg);
+    cursor: pointer;
+}
+
+.goals-create-topbar:hover {
+    background: var(--hover-secondary);
+}
+
+.goals-create-topbar-icon {
+    height: 30px;
+    width: 30px;
+    padding: 4px;
+}
+
+.goals-create-topbar-text {
+}
+
+.goals-create-hidden {
+    width: 100%;
+    display: grid;
+    row-gap: 10px;
+    padding: 10px 30px;
+    justify-items: center;
+}
+
+.goals-create-hidden-image {
+    width: 90%;
+    height: 100px;
+    border-radius: 5px;
+    background-size: cover;
+}
+
+.goals-create-hidden-input {
+    border: 2px solid var(--secondary-bg);
+    border-radius: 4px;
+    padding: 6px;
+    width: 100%;
+    outline: none;
+}
+
+.goals-create-hidden-input:hover,
+.goals-create-hidden-input:focus {
+    border: 2px solid var(--hover-secondary);
+}
+
+.goals-create-hidden-button-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--primary-bg);
+    border-radius: 4px;
+    width: 60%;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.goals-create-hidden-button-wrapper:hover {
+    background: var(--hover-primary);
+}
+
+.goals-create-hidden-button-icon {
+    height: 20px;
+    width: 20px;
+    margin-right: 5px;
+}
+
+.goals-create-hidden-button {
+}
+
+.goals-content-wrapper {
+    display: flex;
+    flex-direction: column;
     height: 100%;
+    padding-bottom: 56px;
+    overflow-y: auto;
+}
+
+.goals-content-category {
+    display: flex;
+    flex-direction: column;
+    padding: 0 10px;
+    flex: 1;
+    transition: 0.2s;
+}
+
+.goals-content-subtitle {
+    height: 46px;
+    display: flex;
+    align-items: center;
+}
+
+.goals-content-list {
+    display: grid;
+    align-content: start;
+    row-gap: 10px;
+    flex: 1;
+}
+
+.goals-content-empty {
+    font-size: 24px;
+    align-self: center;
+    justify-self: center;
 }

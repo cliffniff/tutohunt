@@ -1,4 +1,4 @@
-import { Result } from "../interfaces/common.interfaces";
+import { err, ok, Result } from "neverthrow";
 import {
     SettingsIF,
     SortedSettingsIF,
@@ -21,11 +21,11 @@ export const sortSettings = (settings: SettingsIF): SortedSettingsIF => {
 // This function returns the settings from local storage
 export const getSettings = (): Promise<Result<SettingsIF, Error>> => {
     return new Promise((resolve, reject) => {
-        chrome.storage.sync.get("settings", ({ settings }) => {
+        chrome.storage.local.get(["settings"], ({ settings }) => {
             if (settings) {
-                resolve({ value: JSON.parse(settings) });
+                resolve(ok(JSON.parse(settings)));
             } else {
-                reject({ error: new Error("Error while reading settings") });
+                resolve(err(new Error("Settings is " + settings)));
             }
         });
     });
@@ -34,10 +34,10 @@ export const getSettings = (): Promise<Result<SettingsIF, Error>> => {
 // This function updates the settings in the local storage
 export const saveSettings = (
     settings: SettingsIF
-): Promise<Result<boolean, undefined>> => {
+): Promise<Result<null, undefined>> => {
     return new Promise((resolve, reject) => {
-        chrome.storage.sync.set({ settings: JSON.stringify(settings) }, () => {
-            resolve({ value: true });
+        chrome.storage.local.set({ settings: JSON.stringify(settings) }, () => {
+            resolve(ok(null));
         });
     });
 };

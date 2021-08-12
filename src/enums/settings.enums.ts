@@ -2,3 +2,10 @@ export const enum SettingsValueTypes {
     TEXT = "TEXT",
     CHECKBOX = "CHECKBOX",
 }
+
+export const enum SettingsIds {
+    NO_OF_HOURS_PER_UNIT = "NO_OF_HOURS_PER_UNIT",
+    NO_OF_GOALS_PER_UNIT = "NO_OF_GOALS_PER_UNIT",
+    SHOW_NO_OF_GOALS_ON_ICON = "SHOW_NO_OF_GOALS_ON_ICON",
+    DISABLE_NOTIFICATIONS = "DISABLE_NOTIFICATIONS",
+}

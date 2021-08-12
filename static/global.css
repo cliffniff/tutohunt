@@ -54,6 +54,11 @@ svg {
     stroke: var(--primary-fg);
 } */
 
-.icon-button:hover {
+.icon-button:not(.icon-button-disabled):hover {
     background: var(--hover-secondary);
+}
+
+.icon-button-disabled {
+    background: var(--primary-bg);
+    color: #fff;
 }

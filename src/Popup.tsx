@@ -1,4 +1,3 @@
-import "react-devtools";
 import * as React from "react";
 import { useState } from "react";
 import ReactDOM from "react-dom";
@@ -17,11 +16,7 @@ const Popup: React.FC = () => {
             case "home":
                 return <Home />;
             case "options":
-                return (
-                    <SettingsContextProvider>
-                        <Options />
-                    </SettingsContextProvider>
-                );
+                return <Options />;
         }
     };
 
@@ -29,7 +24,9 @@ const Popup: React.FC = () => {
         <div className="popup-wrapper">
             <ErrorBoundary>
                 <PageContextProvider value={setPage}>
-                    {renderPage()}
+                    <SettingsContextProvider>
+                        {renderPage()}
+                    </SettingsContextProvider>
                 </PageContextProvider>
             </ErrorBoundary>
         </div>

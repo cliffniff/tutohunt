@@ -1,0 +1,32 @@
+.error-wrapper {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.error-title {
+    margin: 10px 0;
+    color: #ff3535;
+    font-size: 1.25rem;
+}
+
+.error-name {
+    margin: 10px 0;
+    color: #6b6b6b;
+    font-size: 1.1rem;
+}
+
+.error-message {
+    margin: 10px 0;
+    color: #6b6b6b;
+    font-size: 0.9rem;
+}
+
+#error-copied-notice {
+    color: #fff;
+    margin: 10px 0;
+    background: #6b6b6b;
+    padding: 10px;
+}
